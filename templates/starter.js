@@ -31,6 +31,3 @@ const generateObjects = () => {
 
 const connectMaxObjects = (maxObjects) => {
 }
-
-// DELETE AND MOVE TO TRIGGER_RAND.JS
-
