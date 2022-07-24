@@ -6,42 +6,21 @@ const {
   createMaxObject,
   createMaxObjects,
   connect,
-  cleanup
+  cleanup,
+  positionMaxObjects
 } = require('utils');
-// var posOffset = 100;
-// var boxOffset = 80;
-// var xInit = 100;
-// var yInit = 0;
 
 function bang () {
   const maxObjects = generateObjects();
   connectMaxObjects(maxObjects);
-  // positionMaxObjects(maxObjects);
+  positionMaxObjects(maxObjects, {
+    xInit: 100,
+    yInit: 0,
+    posOffset: 100,
+    boxOffset: 80
+  });
   // cleanup();
 }
-
-// function positionMaxObjects (maxObjects) {
-//   var x = xInit;
-//   var y = yInit;
-
-//   var maxObjectKeys = Object.keys(maxObjects);
-  
-//   maxObjectKeys.forEach(function (key) {
-//     var singularOrArrayOfObjs = maxObjects[key];
-//     y += posOffset;
-
-//     if (Array.isArray(singularOrArrayOfObjs)) {
-//       x -= posOffset;
-//       singularOrArrayOfObjs.forEach(function (maxObject) {
-//         x += posOffset;
-//         maxObject.rect = [x, y, x + boxOffset, y + boxOffset];
-//       });
-//     } else {
-//       x = xInit;
-//       singularOrArrayOfObjs.rect = [x, y, x + boxOffset, y + boxOffset];
-//     }
-//   });
-// }
 
 const generateObjects = () => {
   const maxObjects = {
