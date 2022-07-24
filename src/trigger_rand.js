@@ -10,7 +10,7 @@ const {
   positionMaxObjects
 } = require('utils');
 
-function bang () {
+const bang = () => {
   const maxObjects = generateObjects();
   connectMaxObjects(maxObjects);
   positionMaxObjects(maxObjects, {
@@ -19,7 +19,7 @@ function bang () {
     posOffset: 100,
     boxOffset: 80
   });
-  // cleanup();
+  cleanup();
 }
 
 const generateObjects = () => {
@@ -41,8 +41,3 @@ const connectMaxObjects = (maxObjects) => {
   connect({obj: sel, index: 0}, {obj: triggers, index: 0});
   connect({obj: triggers, index: 0, useConstantIndex: true}, {obj: outlet, index: 0});
 }
-
-
-
-
-
