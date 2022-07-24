@@ -7,6 +7,7 @@ const {
   createMaxObjects,
   connect,
   cleanup,
+  alignCables,
   positionMaxObjects
 } = require('utils');
 
