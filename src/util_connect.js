@@ -1,5 +1,5 @@
 const connect = (outObj, inObj) => {
-  const handleConnection = [
+  const dispatchHandler = [
     () => {
       const args = prepareOneToOneArgs(outObj, inObj);
       return patcher.connect(...args);
@@ -21,7 +21,7 @@ const connect = (outObj, inObj) => {
   const inObjResult = Array.isArray(inObj.obj) * 2;
   const handlerIndex = outObjResult + inObjResult;
   
-  return handleConnection[handlerIndex]();
+  return dispatchHandler[handlerIndex]();
 };
 
 const prepareOneToManyArgs = (outObj, inObj) => ({
