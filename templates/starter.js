@@ -1,17 +1,18 @@
 const {
-  ARGS
-} = require('constants');
+  anything,
+  getArgs
+} = require('util_get_args');
 
 const {
   createMaxObject,
   createMaxObjects,
   connect,
   cleanup,
-  alignCables,
-  positionMaxObjects
+  positionMaxObjects,
 } = require('utils');
 
-const loadbang = () => {
+const constructPatch = () => {
+  const ARGS = getArgs();
   const maxObjects = generateObjects();
   connectMaxObjects(maxObjects);
   positionMaxObjects(maxObjects, {
@@ -21,14 +22,15 @@ const loadbang = () => {
     boxOffset: 80
   });
   cleanup();
+
+  function generateObjects () {
+    const maxObjects = {
+    };
+    return maxObjects;
+  }
+  
+  function connectMaxObjects (maxObjects) {
+    const {} = maxObjects;
+  }
 };
 
-const generateObjects = () => {
-  const maxObjects = {
-  };
-
-  return maxObjects;
-}
-
-const connectMaxObjects = (maxObjects) => {
-}
