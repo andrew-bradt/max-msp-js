@@ -1,16 +1,18 @@
 const {
-  ARGS
-} = require('constants');
+  anything,
+  getArgs
+} = require('util_get_args');
 
 const {
   createMaxObject,
   createMaxObjects,
   connect,
   cleanup,
-  positionMaxObjects
+  positionMaxObjects,
 } = require('utils');
 
-const bang = () => {
+const constructPatch = () => {
+  const ARGS = getArgs();
   const maxObjects = generateObjects();
   connectMaxObjects(maxObjects);
   positionMaxObjects(maxObjects, {
@@ -20,24 +22,26 @@ const bang = () => {
     boxOffset: 80
   });
   cleanup();
+
+  function generateObjects () {
+    const maxObjects = {
+      inlet: createMaxObject("inlet"),
+      random: createMaxObject("random", ARGS.length - 1),
+      sel: createMaxObject("sel", ARGS),
+      triggers: createMaxObjects('t', ARGS),
+      outlet: createMaxObject("outlet")
+    };
+    return maxObjects;
+  }
+  
+  function connectMaxObjects (maxObjects) {
+    const {inlet, random, sel, triggers, outlet} = maxObjects;
+  
+    connect({obj: inlet, index: 0}, {obj: random, index: 0});
+    connect({obj: random, index: 0}, {obj: sel, index: 0});
+    connect({obj: sel, index: 0}, {obj: triggers, index: 0});
+    connect({obj: triggers, index: 0, useConstantIndex: true}, {obj: outlet, index: 0});
+  }
 }
 
-const generateObjects = () => {
-  const maxObjects = {
-    inlet: createMaxObject("inlet"),
-    random: createMaxObject("random", ARGS.length - 1),
-    sel: createMaxObject("sel", ARGS),
-    triggers: createMaxObjects('t', ARGS),
-    outlet: createMaxObject("outlet")
-  };
-  return maxObjects;
-}
 
-const connectMaxObjects = (maxObjects) => {
-  const {inlet, random, sel, triggers, outlet} = maxObjects;
-
-  connect({obj: inlet, index: 0}, {obj: random, index: 0});
-  connect({obj: random, index: 0}, {obj: sel, index: 0});
-  connect({obj: sel, index: 0}, {obj: triggers, index: 0});
-  connect({obj: triggers, index: 0, useConstantIndex: true}, {obj: outlet, index: 0});
-}
