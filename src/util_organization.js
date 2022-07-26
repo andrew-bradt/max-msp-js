@@ -1,7 +1,25 @@
-const { THIS_SCRIPT } = require('constants');
+const getCleanupHandler = () => {
+  const maxObjList = getMaxObjList();
+  const cleanup = () => {
+    maxObjList.forEach(maxObj => patcher.remove(maxObj));
+  }
 
-const cleanup = () => patcher.remove(THIS_SCRIPT);
+  return cleanup;
+};
+
 const alignCables = () => post("TODO alignCables");
 
-exports.cleanup = cleanup;
+function getMaxObjList () {
+  const maxObjList = [];
+  let maxObj = patcher.firstobject;
+  
+  while (maxObj) {
+    maxObjList.push(maxObj);
+    maxObj = maxObj.nextobject;
+  }
+
+  return maxObjList;
+};
+
+exports.getCleanupHandler = getCleanupHandler;
 exports.alignCables = alignCables;
