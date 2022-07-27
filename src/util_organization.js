@@ -2,11 +2,6 @@ const cleanup = () => {
   const lastObj = getLastMaxObj();
   const maxObjList = getMaxObjList(lastObj);
 
-  // const cleanup = () => {
-  //   maxObjList.forEach(maxObj => patcher.remove(maxObj));
-  // }
-  // return cleanup;
-
   (() => {
       maxObjList.forEach(maxObj => patcher.remove(maxObj));
   })();
