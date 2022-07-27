@@ -7,13 +7,13 @@ const {
   createMaxObject,
   createMaxObjects,
   connect,
-  getCleanupHandler,
+  cleanup,
   positionMaxObjects,
 } = require('utils');
 
 const constructPatch = () => {
   const ARGS = getArgs();
-  const cleanup = getCleanupHandler();
+  cleanup();
   const maxObjects = generateObjects();
   
   connectMaxObjects(maxObjects);
@@ -23,7 +23,6 @@ const constructPatch = () => {
     posOffset: 100,
     boxOffset: 80
   });
-  cleanup();
 
   function generateObjects () {
     const maxObjects = {
