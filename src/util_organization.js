@@ -1,11 +1,15 @@
-const getCleanupHandler = () => {
+const cleanup = () => {
   const lastObj = getLastMaxObj();
   const maxObjList = getMaxObjList(lastObj);
 
-  const cleanup = () => {
-    maxObjList.forEach(maxObj => patcher.remove(maxObj));
-  }
-  return cleanup;
+  // const cleanup = () => {
+  //   maxObjList.forEach(maxObj => patcher.remove(maxObj));
+  // }
+  // return cleanup;
+
+  (() => {
+      maxObjList.forEach(maxObj => patcher.remove(maxObj));
+  })();
 };
 
 const alignCables = () => post("TODO alignCables");
@@ -32,5 +36,5 @@ function getLastMaxObj () {
   return currentObj;
 }
 
-exports.getCleanupHandler = getCleanupHandler;
+exports.cleanup = cleanup;
 exports.alignCables = alignCables;

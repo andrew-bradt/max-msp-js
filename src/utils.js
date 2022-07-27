@@ -4,7 +4,7 @@ const {
 } = require('utils_creation');
 
 const {
-  getCleanupHandler,
+  cleanup,
   alignCables
 } = require('util_organization');
 
@@ -14,5 +14,5 @@ const {positionMaxObjects} = require('util_box.js');
 exports.createMaxObject = createMaxObject;
 exports.createMaxObjects = createMaxObjects;
 exports.connect = connect;
-exports.getCleanupHandler = getCleanupHandler;
+exports.cleanup = cleanup;
 exports.positionMaxObjects = positionMaxObjects;
