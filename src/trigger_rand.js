@@ -28,7 +28,15 @@ const constructPatch = () => {
     const maxObjects = {
       inlet: createMaxObject("inlet"),
       random: createMaxObject("random", ARGS.length),
-      sel: createMaxObject("sel", ARGS),
+      sel: createMaxObject(
+        "sel", 
+        ARGS,
+        {
+          transform: {
+            operation: 'useIndex',
+          }
+        } 
+      ),
       triggers: createMaxObjects('t', ARGS),
       outlet: createMaxObject("outlet")
     };
