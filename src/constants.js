@@ -1,1 +1,0 @@
-exports.THIS_SCRIPT = patcher.firstobject;
