@@ -5,7 +5,10 @@ function createMaxObjects (type, args, options) {
 
 function createMaxObject (type, args, options) {
   const processedArgs = transformArgs(args, options);
-  return renderMaxObj(type, processedArgs);
+  const maxObj = renderMaxObj(type, processedArgs);
+  dispatchTypeSpecificRoutines(type, maxObj, processedArgs);
+
+  return maxObj;
 };
 
 function transformArgs (args, options) {
@@ -35,10 +38,33 @@ function dispatchArgTransformation (args, transform) {
   }
 }
 
-function renderMaxObj (type, arg) {
-  return (arg || arg === 0) 
-    ? patcher.newdefault(0, 0, type, arg) 
-    : patcher.newdefault(0, 0, type);
+function renderMaxObj (type, args) {
+  return shouldNotRenderArgs(type, args)
+    ? patcher.newdefault(0, 0, type) 
+    : patcher.newdefault(0, 0, type, args);
+}
+
+function dispatchTypeSpecificRoutines (objectType, maxObj, args) {
+  const dispatchers = {
+    coll: () => setCollValues(maxObj, args)
+  };
+
+  const routineToDispatch = dispatchers[objectType];
+  return routineToDispatch && routineToDispatch();
+}
+
+function setCollValues (collObj, args) {
+  args.forEach((arg, i) => collObj.message("insert", [i, arg]));
+}
+
+function shouldNotRenderArgs (type, args) {
+  const validArgs = args || args === 0;
+  
+  const invalidTypes = {
+    coll: true
+  };
+
+  return !validArgs || invalidTypes[type];
 }
 
 exports.createMaxObject = createMaxObject;
