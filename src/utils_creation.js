@@ -7,6 +7,7 @@ function createMaxObject (type, args, options) {
   const processedArgs = transformArgs(args, options);
   const maxObj = renderMaxObj(type, processedArgs);
   dispatchTypeSpecificRoutines(type, maxObj, processedArgs);
+  addAtributes(maxObj, options);
 
   return maxObj;
 };
@@ -35,6 +36,17 @@ function dispatchArgTransformation (args, transform) {
   function useIndex () {
     const offset = transform.offset || 0;
     return args.map((el, i) => i + offset);
+  }
+}
+
+function addAtributes (maxObj, options) {
+  if (options && options.attributes) {
+    const { attributes } = options;
+    const keys = Object.keys(attributes);
+
+    keys.forEach(key => {
+      maxObj.setattr(key, attributes[key]);
+    });
   }
 }
 
